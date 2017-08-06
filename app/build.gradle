@@ -1,0 +1,60 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 26
+    buildToolsVersion "26.0.0"
+    defaultConfig {
+        applicationId "com.entrpn.room.livedata.example"
+        minSdkVersion 23
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    dataBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+
+    implementation supportDependencies.appCompat
+    implementation supportDependencies.design
+    implementation supportDependencies.constraintLayout
+    implementation supportDependencies.cardView
+
+    implementation retrofitDependencies.retrofit
+    implementation retrofitDependencies.gson
+
+    implementation lifecycleDependencies.lifecycleRuntime
+    implementation lifecycleDependencies.lifecycleExtensions
+    kapt lifecycleDependencies.lifecycleCompiler
+
+    implementation roomDependencies.roomRuntime
+    kapt roomDependencies.roomCompiler
+
+    kapt dataBindingCompiler
+
+    implementation anko
+
+    implementation okHttpDependencies.okhttp
+    implementation okHttpDependencies.interceptor
+
+    implementation glide
+    implementation circleImageView
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.0'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.0'
+}

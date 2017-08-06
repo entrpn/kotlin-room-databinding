@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="model"
+            type="com.entrpn.room.livedata.example.models.PeopleTransactions"/>
+        <variable
+            name="viewModel"
+            type="com.entrpn.room.livedata.example.viewmodel.PeopleListViewModel"/>
+        <variable
+            name="position"
+            type="int"/>
+    </data>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:padding="16dp"
+        android:onClick="@{() -> viewModel.onItemClick(model)}"
+        android:layout_height="wrap_content">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imgThumbnail"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            app:loadUrl="@{model.thumbnail}" />
+        <TextView
+            android:id="@+id/txtName"
+            android:layout_toEndOf="@id/imgThumbnail"
+            android:layout_width="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="@{model.fullName}"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/txtPhoneNumber"
+            android:text="@{model.peopleModel.phone}"
+            android:layout_below="@id/txtName"
+            android:layout_alignStart="@id/txtName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/txtEmail"
+            android:layout_below="@id/txtPhoneNumber"
+            android:layout_alignStart="@id/txtPhoneNumber"
+            android:layout_width="match_parent"
+            android:text="@{model.peopleModel.mail}"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+</layout>
