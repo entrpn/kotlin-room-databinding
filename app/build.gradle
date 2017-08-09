@@ -26,35 +26,36 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 
-    implementation supportDependencies.appCompat
-    implementation supportDependencies.design
-    implementation supportDependencies.constraintLayout
-    implementation supportDependencies.cardView
+    compile supportDependencies.appCompat
+    compile supportDependencies.design
+    compile supportDependencies.constraintLayout
+    compile supportDependencies.cardView
 
-    implementation retrofitDependencies.retrofit
-    implementation retrofitDependencies.gson
+    compile retrofitDependencies.retrofit
+    compile retrofitDependencies.gson
 
-    implementation lifecycleDependencies.lifecycleRuntime
-    implementation lifecycleDependencies.lifecycleExtensions
+    compile lifecycleDependencies.lifecycleRuntime
+    compile lifecycleDependencies.lifecycleExtensions
     kapt lifecycleDependencies.lifecycleCompiler
 
-    implementation roomDependencies.roomRuntime
+    compile roomDependencies.roomRuntime
     kapt roomDependencies.roomCompiler
 
     kapt dataBindingCompiler
 
-    implementation anko
+    compile anko
 
-    implementation okHttpDependencies.okhttp
-    implementation okHttpDependencies.interceptor
+    compile okHttpDependencies.okhttp
+    compile okHttpDependencies.interceptor
 
-    implementation glide
-    implementation circleImageView
+    compile glide
+    compile circleImageView
 
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.0'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.0'
+    testCompile 'junit:junit:4.12'
+    androidTestCompile 'com.android.support:support-annotations:26.0.0'
+    androidTestCompile 'com.android.support.test:runner:1.0.0'
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:3.0.0'
 }
