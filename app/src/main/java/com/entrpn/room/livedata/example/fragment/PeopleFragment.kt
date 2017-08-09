@@ -23,7 +23,8 @@ import com.entrpn.room.livedata.example.db.AppDatabase
 import com.entrpn.room.livedata.example.models.PeopleTransactions
 import com.entrpn.room.livedata.example.viewmodel.PeopleListViewModel
 import kotlinx.android.synthetic.main.people_fragment.*
-import org.jetbrains.anko.doAsync
+import kotlinx.coroutines.experimental.CommonPool
+import kotlinx.coroutines.experimental.async
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -72,7 +73,7 @@ class PeopleFragment: Fragment(){
                 val position = viewHolder?.adapterPosition
                 position?.let{
                     val model = adapter.mModels[position]
-                    doAsync {
+                    async(CommonPool) {
                         AppDatabase.getDatabase(activity)?.peopleModelDao()?.deletePeople(model.peopleModel)
                     }
                 }
@@ -96,7 +97,7 @@ class PeopleFragment: Fragment(){
             }
             override fun onResponse(call: Call<PeopleResponse>?, response: Response<PeopleResponse>?) {
                 if (response != null && response.isSuccessful) {
-                    doAsync {
+                    async(CommonPool) {
                         response.body().peopleModelList.forEach {
                             i -> AppDatabase.getDatabase(activity)?.peopleModelDao()?.addPeople(i.getPeopleModel())
                             AppDatabase.getDatabase(activity)?.pictureModelDao()?.addPicture(i.getPictureModel())
