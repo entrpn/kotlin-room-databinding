@@ -4,7 +4,7 @@
     <data>
         <variable
             name="model"
-            type="com.entrpn.room.livedata.example.models.PeopleTransactions"/>
+            type="com.entrpn.room.livedata.example.models.PeopleModel"/>
         <variable
             name="viewModel"
             type="com.entrpn.room.livedata.example.viewmodel.PeopleListViewModel"/>
@@ -21,17 +21,17 @@
             android:id="@+id/imgThumbnail"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            app:loadUrl="@{model.thumbnail}" />
+            app:loadUrl="@{model.pictureModel.thumbnail}" />
         <TextView
             android:id="@+id/txtName"
             android:layout_toEndOf="@id/imgThumbnail"
             android:layout_width="wrap_content"
             android:layout_marginStart="10dp"
-            android:text="@{model.fullName}"
+            android:text="@{model.nameModel.fullName}"
             android:layout_height="wrap_content"/>
         <TextView
             android:id="@+id/txtPhoneNumber"
-            android:text="@{model.peopleModel.phone}"
+            android:text="@{model.phone}"
             android:layout_below="@id/txtName"
             android:layout_alignStart="@id/txtName"
             android:layout_width="match_parent"
@@ -41,7 +41,7 @@
             android:layout_below="@id/txtPhoneNumber"
             android:layout_alignStart="@id/txtPhoneNumber"
             android:layout_width="match_parent"
-            android:text="@{model.peopleModel.mail}"
+            android:text="@{model.mail}"
             android:layout_height="wrap_content"/>
     </RelativeLayout>
 </layout>

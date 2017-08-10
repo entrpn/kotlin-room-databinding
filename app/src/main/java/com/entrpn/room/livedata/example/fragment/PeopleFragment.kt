@@ -20,7 +20,7 @@ import com.entrpn.room.livedata.example.adapter.BindingRecyclerViewAdapter
 import com.entrpn.room.livedata.example.data.PeopleFactory
 import com.entrpn.room.livedata.example.data.PeopleResponse
 import com.entrpn.room.livedata.example.db.AppDatabase
-import com.entrpn.room.livedata.example.models.PeopleTransactions
+import com.entrpn.room.livedata.example.models.PeopleModel
 import com.entrpn.room.livedata.example.viewmodel.PeopleListViewModel
 import kotlinx.android.synthetic.main.people_fragment.*
 import kotlinx.coroutines.experimental.CommonPool
@@ -55,6 +55,7 @@ class PeopleFragment: Fragment(){
     // PRIVATE METHODS
     *///////////////////////////////////////////////////////////
     private fun syncUI() {
+        exportDatabase(AppDatabase.DB_NAME)
         btnPopulate.setOnClickListener{
             populateDb()
         }
@@ -62,7 +63,7 @@ class PeopleFragment: Fragment(){
 
         borrowedListRecyclerView.setHasFixedSize(true)
         borrowedListRecyclerView.layoutManager = LinearLayoutManager(context)
-        val adapter = BindingRecyclerViewAdapter<PeopleTransactions>(ObservableArrayList(),viewModel)
+        val adapter = BindingRecyclerViewAdapter<PeopleModel>(ObservableArrayList(),viewModel)
         borrowedListRecyclerView.adapter = adapter
         val simpleItemTouchCallback = object: ItemTouchHelper.SimpleCallback(0,(ItemTouchHelper.RIGHT.or(ItemTouchHelper.LEFT))) {
             override fun onMove(recyclerView: RecyclerView?, viewHolder: RecyclerView.ViewHolder?, target: RecyclerView.ViewHolder?): Boolean {
@@ -74,7 +75,7 @@ class PeopleFragment: Fragment(){
                 position?.let{
                     val model = adapter.mModels[position]
                     async(CommonPool) {
-                        AppDatabase.getDatabase(activity)?.peopleModelDao()?.deletePeople(model.peopleModel)
+                        AppDatabase.getDatabase(activity)?.peopleModelDao()?.deletePeople(model)
                     }
                 }
             }
@@ -84,9 +85,8 @@ class PeopleFragment: Fragment(){
         itemTouchHelper.attachToRecyclerView(borrowedListRecyclerView)
 
         viewModel.getPeople()?.observe(activity as LifecycleOwner, Observer {
-            t: List<PeopleTransactions>? -> run {
+            t: List<PeopleModel>? -> run {
             adapter.addModels(t)
-            exportDatabase(AppDatabase.DB_NAME)
         }
         })
     }
@@ -99,11 +99,7 @@ class PeopleFragment: Fragment(){
                 if (response != null && response.isSuccessful) {
                     async(CommonPool) {
                         response.body().peopleModelList.forEach {
-                            i -> AppDatabase.getDatabase(activity)?.peopleModelDao()?.addPeople(i.getPeopleModel())
-                            AppDatabase.getDatabase(activity)?.pictureModelDao()?.addPicture(i.getPictureModel())
-                            AppDatabase.getDatabase(activity)?.nameModelDao()?.addName(i.getNameModel())
-                            AppDatabase.getDatabase(activity)?.loginModelDao()?.addLogin(i.getLoginModel())
-                            AppDatabase.getDatabase(activity)?.locationModelDao()?.addLocation(i.getLocationModel())}
+                            i -> AppDatabase.getDatabase(activity)?.peopleModelDao()?.addPeople(i)}
                     }
                 }
             }

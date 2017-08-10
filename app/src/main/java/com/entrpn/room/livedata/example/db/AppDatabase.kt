@@ -4,20 +4,16 @@ import android.arch.persistence.room.Database
 import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
 import android.content.Context
-import com.entrpn.room.livedata.example.dao.*
-import com.entrpn.room.livedata.example.models.*
+import com.entrpn.room.livedata.example.dao.PeopleModelDao
+import com.entrpn.room.livedata.example.models.PeopleModel
 
-@Database(entities = arrayOf(PeopleModel::class, PictureModel::class, NameModel::class, LoginModel::class, LocationModel::class), version = 5)
+@Database(entities = arrayOf(PeopleModel::class), version = 1)
 abstract class AppDatabase : RoomDatabase() {
 
     /*//////////////////////////////////////////////////////////
     // ABSTRACT METHODS
     *///////////////////////////////////////////////////////////
     abstract fun peopleModelDao(): PeopleModelDao
-    abstract fun pictureModelDao(): PictureModelDao
-    abstract fun nameModelDao(): NameModelDao
-    abstract fun loginModelDao(): LoginModelDao
-    abstract fun locationModelDao(): LocationModelDao
 
 
     /*//////////////////////////////////////////////////////////

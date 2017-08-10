@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.entrpn.room.livedata.example.BR
 import com.entrpn.room.livedata.example.databinding.PeopleDetailFragmentBinding
-import com.entrpn.room.livedata.example.models.PeopleTransactions
+import com.entrpn.room.livedata.example.models.PeopleModel
 
 class PeopleDetailFragment : Fragment() {
 
@@ -19,7 +19,7 @@ class PeopleDetailFragment : Fragment() {
         retainInstance = true
     }
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val model = arguments.getSerializable(PeopleTransactions.TAG) as PeopleTransactions
+        val model = arguments.getSerializable(PeopleModel.TAG) as PeopleModel
         val binding = PeopleDetailFragmentBinding.inflate(inflater,container,false)
         binding.setVariable(BR.model,model)
         return binding.root
@@ -31,10 +31,10 @@ class PeopleDetailFragment : Fragment() {
     *///////////////////////////////////////////////////////////
     companion object {
         val TAG = "PeopleDetailFragment"
-        fun getInstance(model: PeopleTransactions?) : Fragment {
+        fun getInstance(model: PeopleModel?) : Fragment {
             val fragment = PeopleDetailFragment()
             val bundle = Bundle()
-            bundle.putSerializable(PeopleTransactions.TAG,model)
+            bundle.putSerializable(PeopleModel.TAG,model)
             fragment.arguments = bundle
             return fragment
         }

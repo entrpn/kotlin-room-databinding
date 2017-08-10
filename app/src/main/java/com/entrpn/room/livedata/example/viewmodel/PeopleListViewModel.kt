@@ -5,17 +5,16 @@ import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import com.entrpn.room.livedata.example.R
-import com.entrpn.room.livedata.example.data.PeopleFactory
 import com.entrpn.room.livedata.example.db.AppDatabase
-import com.entrpn.room.livedata.example.models.PeopleTransactions
+import com.entrpn.room.livedata.example.models.PeopleModel
 
 class PeopleListViewModel(application: Application) : AndroidViewModel(application), IViewModel {
 
     /*//////////////////////////////////////////////////////////
     // MEMBERS
     *///////////////////////////////////////////////////////////
-    val selected: MutableLiveData<PeopleTransactions> = MutableLiveData()
-    var peopleModelList: LiveData<List<PeopleTransactions>>? = null
+    val selected: MutableLiveData<PeopleModel> = MutableLiveData()
+    var peopleModelList: LiveData<List<PeopleModel>>? = null
 
 
     /*//////////////////////////////////////////////////////////
@@ -29,14 +28,14 @@ class PeopleListViewModel(application: Application) : AndroidViewModel(applicati
     /*//////////////////////////////////////////////////////////
     // PUBLIC METHODS
     *///////////////////////////////////////////////////////////
-    fun getPeople() : LiveData<List<PeopleTransactions>>? {
+    fun getPeople() : LiveData<List<PeopleModel>>? {
         return peopleModelList
     }
-    fun onItemClick(model: PeopleTransactions) {
+    fun onItemClick(model: PeopleModel) {
         selected.value = model
         selected.postValue(null)
     }
-    fun getSelectedModel() : LiveData<PeopleTransactions> {
+    fun getSelectedModel() : LiveData<PeopleModel> {
         return selected
     }
 
